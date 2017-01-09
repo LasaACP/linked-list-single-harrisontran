@@ -146,7 +146,25 @@ void LinkedList::remove(int i) {
 	}
 }
 // set(index, value)		//Replaces the element at the specified index in this list with a new value.
-
+void LinkedList::set(int i, Airport *a) {
+	int length = size();
+	int increment = length - 1 - i;
+	int counter = 0;
+	Node *ptr = head;
+	while (ptr->next != NULL && counter != increment) {
+		counter++;
+		ptr = ptr->next;
+	}
+	if (counter == increment) {
+		ptr->locationID[0] = a->code[0];
+		ptr->locationID[1] = a->code[1];
+		ptr->locationID[2] = a->code[2];
+		ptr->locationID[3] = a->code[3];
+		ptr->locationID[4] = a->code[4];
+		ptr->lat = a->latitude;
+		ptr->lon = a->longitude;
+	}
+}
 // size()					//Returns the number of elements in this list.
 int LinkedList::size() {
 	int counter = 0;

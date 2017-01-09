@@ -69,7 +69,7 @@ int main() {
 	LinkedList a;
 	a.add(airportArr[1]);
 	a.add(airportArr[2]);
-	a.remove(0);
+	a.set(0,airportArr[2]);
 	//a.insert(0,airportArr[3]);
 	cout << a.get(0).code;
 	//std::cout << endl << typeid(airportArr[1]).name() << '\n';

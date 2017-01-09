@@ -47,6 +47,7 @@ public:
 	// remove(index)			//Removes the element at the specified index from this list.
 	void remove(int i);
 	// set(index, value)		//Replaces the element at the specified index in this list with a new value
+	void set(int i, Airport *a);
 	// size()					//Returns the number of elements in this list.
 	int size();
 	// subList(start, length)	//Returns a new list containing elements from a sub-range of this list.
