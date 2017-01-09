@@ -33,12 +33,13 @@ int main() {
 			airportArr[c]->longitude = atof(cNum);
 			infile.getline(cNum, 256, '\n');
 			airportArr[c]->latitude = atof(cNum);
-
-			if (!(c % 1000))
+			/*
+			if (!(c % 1000)) {
 				cout << airportArr[c]->code << " long: "
 						<< airportArr[c]->longitude << " lat: "
 						<< airportArr[c]->latitude << endl;
-
+			}
+			*/
 			i++;
 			c++;
 		}
@@ -68,7 +69,8 @@ int main() {
 	LinkedList a;
 	a.add(airportArr[1]);
 	a.add(airportArr[2]);
-	a.add(airportArr[3]);
+	a.remove(0);
+	//a.insert(0,airportArr[3]);
 	cout << a.get(0).code;
 	//std::cout << endl << typeid(airportArr[1]).name() << '\n';
 }

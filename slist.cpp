@@ -37,7 +37,6 @@ void LinkedList::add(Airport *a) {
 	n->lat = a->latitude;
 	n->lon = a->longitude;
 	n->next = head;
-
 	head = n;
 }
 // clear()					//Removes all elements from this list.
@@ -56,7 +55,8 @@ bool LinkedList::equals(LinkedList l) {
 	Node *ptr_one = head;
 	Node *ptr_two = l.head;
 	while (ptr_one->next != NULL) {
-		if (std::string(ptr_one->locationID).compare(std::string(ptr_two->locationID))
+		if (std::string(ptr_one->locationID).compare(
+				std::string(ptr_two->locationID))
 				&& ptr_one->lat == ptr_two->lat
 				&& ptr_one->lon == ptr_two->lon) {
 			ptr_one = ptr_one->next;
@@ -65,15 +65,8 @@ bool LinkedList::equals(LinkedList l) {
 			return false;
 		}
 	}
-	while (ptr_two->next != NULL) {
-		if (std::string(ptr_two->locationID).compare(std::string(ptr_one->locationID))
-				&& ptr_two->lat == ptr_one->lat
-				&& ptr_two->lon == ptr_one->lon) {
-			ptr_one = ptr_one->next;
-			ptr_two = ptr_two->next;
-		} else {
-			return false;
-		}
+	if (ptr_two->next != NULL) {
+		return false;
 	}
 	return true;
 }
@@ -98,18 +91,60 @@ Airport LinkedList::get(int i) {
 		counter++;
 		ptr = ptr->next;
 	}
-	if(counter == increment) {
+	if (counter == increment) {
 		return nodeToAirport(*ptr);
 	}
 }
 //insert(index, value)		//Inserts the element into this list before the specified index.
-
+void LinkedList::insert(int i, Airport *a) {
+	int length = size();
+	int increment = length - 1 - i;
+	int counter = 0;
+	Node *ptr = head;
+	Node *newNode = new Node();
+	newNode->locationID[0] = a->code[0];
+	newNode->locationID[1] = a->code[1];
+	newNode->locationID[2] = a->code[2];
+	newNode->locationID[3] = a->code[3];
+	newNode->locationID[4] = a->code[4];
+	ptr->lat = a->latitude;
+	ptr->lon = a->longitude;
+	while (ptr->next != NULL && counter < increment - 1) {
+		counter++;
+		ptr = ptr->next;
+	}
+	if (counter == increment - 1) {
+		ptr->next = newNode;
+		ptr = ptr->next;
+	}
+}
 //exchg(index1, index2)		//Switches the payload data of specified indexex.
+void LinkedList::exchg(int index1, int index2) {
 
+}
 // isEmpty()				//Returns true if this list contains no elements.
-
+bool LinkedList::isEmpty() {
+	if (head == NULL) {
+		return true;
+	} else {
+		return false;
+	}
+}
 // remove(index)			//Removes the element at the specified index from this list.
-
+void LinkedList::remove(int i) {
+	int length = size();
+	int increment = length - 1 - i;
+	int counter = 0;
+	Node *ptr = head;
+	while (ptr->next != NULL && counter != increment - 1) {
+		counter++;
+		ptr = ptr->next;
+	}
+	if (counter == increment - 1) {
+		ptr->next = ptr->next->next;
+		delete ptr->next;
+	}
+}
 // set(index, value)		//Replaces the element at the specified index in this list with a new value.
 
 // size()					//Returns the number of elements in this list.
@@ -130,12 +165,13 @@ string LinkedList::toString() {
 	string output;
 	Node *ptr = head;
 	while (ptr->next != NULL) {
-		output += std::string(ptr->locationID) + " " + patch::to_string(ptr->lat) + " "
-				+ patch::to_string(ptr->lon) + "\n";
+		output += std::string(ptr->locationID) + " "
+				+ patch::to_string(ptr->lat) + " " + patch::to_string(ptr->lon)
+				+ "\n";
 		ptr = ptr->next;
 	}
-	output += std::string(ptr->locationID) + " " + patch::to_string(ptr->lat) + " "
-					+ patch::to_string(ptr->lon) + "\n";
+	output += std::string(ptr->locationID) + " " + patch::to_string(ptr->lat)
+			+ " " + patch::to_string(ptr->lon) + "\n";
 
 	return output;
 }
