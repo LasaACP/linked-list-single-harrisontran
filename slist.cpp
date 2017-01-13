@@ -120,7 +120,74 @@ void LinkedList::insert(int i, Airport *a) {
 }
 //exchg(index1, index2)		//Switches the payload data of specified indexex.
 void LinkedList::exchg(int index1, int index2) {
+	int counter = size() - 1;
+	Node *ptr = head;
+	Node *other = head;
+	Node *one;
+	Node *two;
+	bool done_one = false;
+	bool done_two = false;
+	if (index1 == size() - 1) {
+		one = head;
+		done_one = true;
+		std::cout << "Flag0" << endl;
+	} else if (index2 == size() - 1) {
+		two = head;
+		done_two = true;
+		std::cout << "Flag1" << endl;
 
+	}
+	while (counter >= 0) {
+		if (counter == index1 + 1 && done_one == false) {
+			one = ptr->next;
+			std::cout << "Flag2" << endl;
+
+		} else if (counter == index2 + 1 && done_two == false) {
+			two = ptr->next;
+			std::cout << "Flag3" << endl;
+		}
+		ptr = ptr->next;
+		counter--;
+	}
+	Airport* air_one = new Airport();
+	Airport* air_two = new Airport();
+	air_one->code[0] = one->locationID[0];
+	air_one->code[1] = one->locationID[1];
+	air_one->code[2] = one->locationID[2];
+	air_one->code[3] = one->locationID[3];
+	air_one->code[4] = one->locationID[4];
+	air_one->latitude = one->lat;
+	air_one->longitude = one->lon;
+	air_two->code[0] = two->locationID[0];
+	air_two->code[1] = two->locationID[1];
+	air_two->code[2] = two->locationID[2];
+	air_two->code[3] = two->locationID[3];
+	air_two->code[4] = two->locationID[4];
+	air_two->latitude = two->lat;
+	air_two->longitude = two->lon;
+	counter = size() - 1;
+	while (counter >= 0) {
+		if (counter == index1) {
+			other->locationID[0] = air_two->code[0];
+			other->locationID[1] = air_two->code[1];
+			other->locationID[2] = air_two->code[2];
+			other->locationID[3] = air_two->code[3];
+			other->locationID[4] = air_two->code[4];
+			other->lat = air_two->latitude;
+			other->lon = air_two->longitude;
+		}
+		if (counter == index2) {
+			other->locationID[0] = air_one->code[0];
+			other->locationID[1] = air_one->code[1];
+			other->locationID[2] = air_one->code[2];
+			other->locationID[3] = air_one->code[3];
+			other->locationID[4] = air_one->code[4];
+			other->lat = air_one->latitude;
+			other->lon = air_one->longitude;
+		}
+		other = other->next;
+		counter--;
+	}
 }
 // isEmpty()				//Returns true if this list contains no elements.
 bool LinkedList::isEmpty() {

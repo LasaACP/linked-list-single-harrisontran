@@ -69,9 +69,12 @@ int main() {
 	LinkedList a;
 	a.add(airportArr[1]);
 	a.add(airportArr[2]);
-	a.set(0,airportArr[2]);
-	//a.insert(0,airportArr[3]);
-	cout << a.get(0).code;
+	a.add(airportArr[3]);
+	a.add(airportArr[4]);
+	//cout << a.size();
+	cout << a.get(0).latitude << " " << a.get(1).latitude << endl;
+	a.exchg(1,0);
+	cout << a.get(0).latitude << " " << a.get(1).latitude << endl;
 	//std::cout << endl << typeid(airportArr[1]).name() << '\n';
 }
 
