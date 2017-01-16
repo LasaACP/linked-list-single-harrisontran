@@ -1,66 +1,68 @@
-/* Header file for single linked list class library */
-#include <iostream>
+/*
+ * slist.h
+ * Header file for single linked list class library
+ *  Created on: Jan 14, 2017
+ *      Author: Harrison Tran
+ */
 #include <string>
+#include <iostream>
+#include <sstream>
 using namespace std;
 
-// Header head
 #ifndef SLIST_H
 #define SLIST_H
 
-class Airport {
-public:
-	char code[5];
-	double longitude;
-	double latitude;
+// Need this patch here because otherwise I can't append integers or doubles to strings
+namespace patch {
+template<typename T> std::string to_string(const T& n) {
+	std::ostringstream stm;
+	stm << n;
+	return stm.str();
+}
+}
+
+struct node {
+	char iata[5];
+	double lat;
+	double lon;
+	node * next;
 };
 
-/**
- * Linked List class
- */
 class LinkedList {
-	//friend class Airport;
-	struct Node {
-		char locationID[5];
-		double lat;
-		double lon;
-		Node *next;
-	};
-
 public:
-	LinkedList(); // constructor
-	~LinkedList(); // destructor
+	LinkedList();
+	~LinkedList();
 
-	// add(value)				//Adds a new value to the end of this list.
-	void add(Airport *a);
-	// clear()					//Removes all elements from this list.
-	void clear();
-	// equals(list)				//Returns true if the two lists contain the same elements in the same order.
-	bool equals(LinkedList l);
-	//get(index)				//Returns the element at the specified index in this list.
-	Airport get(int i);
-	//insert(index, value)		//Inserts the element into this list before the specified index.
-	void insert(int index, Airport *a);
-	//exchg(index1, index2)		//Switches the payload data of specified indexex.
+	void add(char iata[], double lat, double lon);
+	void insert(int index, char iata[], double lat, double lon);
+	void set(int index, char iata[], double lat, double lon);
 	void exchg(int index1, int index2);
-	// isEmpty()				//Returns true if this list contains no elements.
+
+	node get(int index);
+
+	void remove(int index);
+	void clear();
+
+	bool equals(LinkedList compare);
+	LinkedList subList(int start, int sublength);
 	bool isEmpty();
-	// remove(index)			//Removes the element at the specified index from this list.
-	void remove(int i);
-	// set(index, value)		//Replaces the element at the specified index in this list with a new value
-	void set(int i, Airport *a);
-	// size()					//Returns the number of elements in this list.
 	int size();
-	// subList(start, length)	//Returns a new list containing elements from a sub-range of this list.
-	// toString()				//Converts the list to a printable string representation.
 	string toString();
-	Airport nodeToAirport(Node n);
-private:
-	Node *head; // this is the private member variable. It is just a pointer to the first Node
+
+	node * head;
+	node * tail;
+	int length;
 };
 
+#endif /*SLIST_H*/
 
+// clear()					//Removes all elements from this list.
+// equals(list)				//Returns true if the two lists contain the same elements in the same order.
 
-
-
-// Header end
-#endif
+//insert(index, value)		//Inserts the element into this list before the specified index.
+//exchg(index1, index2)		//Switches the payload data of specified indexex.
+// isEmpty()				//Returns true if this list contains no elements.
+// remove(index)			//Removes the element at the specified index from this list.
+// set(index, value)		//Replaces the element at the specified index in this list with a new value.
+// size()					//Returns the number of elements in this list.
+// subList(start, length)	//Returns a new list containing elements from a sub-range of this list.
